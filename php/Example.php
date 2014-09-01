@@ -14,10 +14,12 @@ try {
 	//获取OKCoin行情（盘口数据）
 	$params = array('symbol' => 'ltc_usd');
 	$result = $client -> tickerApi($params);
+	print_r($result);
 
 	//获取OKCoin市场深度
 	$params = array('symbol' => 'btc_usd', 'size' => 5);
 	$result = $client -> depthApi($params);
+	print_r($result);
 
 	//获取OKCoin历史交易信息
 	//$params = array('symbol' => 'btc_usd');
