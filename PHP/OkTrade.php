@@ -2,123 +2,105 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>无标题文档</title>
+<title>PHP 测试例子</title>
 </head>
 <?php
-
 $Ok=new OkAPI ;
 //var_dump( $Ok->Fund());
 //var_dump( $Ok->CancelOrder(23456));
- var_dump( $Ok->Trade(1000,0.11,"buy"));
+var_dump( $Ok->Trade(1000, 0.11, "buy"));
 //var_dump($Ok->GetOrder("2345"));
 class OkAPI {
 
+   var $apiKey = "";
+   var $secretKey = "";
 
-var  $partner=// "45678912";
-var  $secretKey ="";//"19535CF3D949D4EF56F8D3D4ED78C505";
+   protected function ok_query($parameters, $url){
+	   
+        $post_data =http_build_query($parameters, '', '&');
+	echo  $post_data;
+	$sign=md5 ($post_data."&secret_key=".$this->secretKey );
+	$sign=strtoupper($sign);
+	var_dump($sign);
+	$post="api_key=".$this->apiKey."&sign=".$sign."&".$post_data;
+	var_dump($post);
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+	$res = curl_exec($ch);
+	$res=json_decode ($res, true);
+	return $res;
 
-  
- 
- 
-protected   function ok_query($parameters, $url){
-      
-	  
-	  $post_data =http_build_query($parameters, '', '&');
-
-	   echo  $post_data;
-	  $sign=md5 ($post_data."&secret_key=".$this->secretKey );
-	  $sign=strtoupper($sign);
-	  
-	  var_dump($sign);
-	  
-	  $post="partner=".$this->partner."&sign=".$sign."&".$post_data;
-	  var_dump($post);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_URL, $url);
-	    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-		
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        $res = curl_exec($ch);
-		$res=json_decode ($res,true);
-		return $res;
-
-}
-
-
-
-
+   }
 
    function MarketDepth($N=5){
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, "https://www.okcoin.com/api/v1/depth.do ");   //国际站
-//curl_setopt($ch, CURLOPT_URL, "https://www.okcoin.cn/api/v1/depth.do "); //中国站
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-$res= curl_exec($ch);
+   	
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, "https://www.okcoin.com/api/v1/depth.do ");   //国际站
+	//curl_setopt($ch, CURLOPT_URL, "https://www.okcoin.cn/api/v1/depth.do "); //中国站
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	$res= curl_exec($ch);
+	$res=json_decode ($res,true);
+	$res_ask=array_reverse(array_slice($res["asks"] , -$N, $N));
+	$res_bid=array_slice($res["bids"] , 0, $N);
+	$ans=array("asks"=>$res_ask, "bids"=>$res_bid);
+	return $ans;
+	
+   }
        
-	 $res=json_decode ($res,true);
-	  
-     $res_ask=array_reverse(array_slice($res["asks"] , -$N, $N));
-	 
-	 $res_bid=array_slice($res["bids"] , 0, $N) ;
-	 
-	 $ans=array("asks"=>$res_ask,"bids"=>$res_bid);
-	 return $ans;
-  }
-       
-	   
-function  Trade($Price,$Amount,$Direction){
+   function Trade($Price, $Amount, $Direction){
 
-					  
-	 $parameters=array("amount"=>$Amount,"partner"=>$this->partner,"rate"=>$Price,"symbol"=>'btc_usd',
+	$parameters=array("amount"=>$Amount, "api_key"=>$this->apiKey, "price"=>$Price, "symbol"=>'btc_usd',
 	                  "type"=>strtolower($Direction));
-					  
-      $url= 'https://www.okcoin.com/api/v1/trade.do';		//国际站
-       //  $url= 'https://www.okcoin.cn/api/v1/trade.do';  //中国站
-	  $res=$this->ok_query($parameters, $url);
-	  return $res;
-}		
+         $url= 'https://www.okcoin.com/api/v1/trade.do';//国际站
+         //  $url= 'https://www.okcoin.cn/api/v1/trade.do';//中国站
+	 $res=$this->ok_query($parameters, $url);
+	 return $res;
+	 
+   }		
 		
+   function CancelOrder($OrderID){
 	
-	 
-  function	CancelOrder($OrderID){
-	 
-	
-	 $parameters=array("order_id"=>$OrderID,"partner"=>$this->partner,"symbol"=>"btc_usd");  //注意 symbol  国际站：btc_usd/ltc_usd  国内站：btc_cny/ltc_cny
-     $url='https://www.okcoin.com/api/v1/cancel_order.do';      //国际站
-	 //   $url='https://www.okcoin.cn/api/v1/cancel_order.do';  //中国站
-	  $res=$this->ok_query($parameters, $url);
-	  return $res;
-	}
+	 $parameters=array("api_key"=>$this->apiKey,"order_id"=>$OrderID,"symbol"=>"btc_usd");  //注意 symbol  国际站：btc_usd/ltc_usd  国内站：btc_cny/ltc_cny
+         $url='https://www.okcoin.com/api/v1/cancel_order.do';      //国际站
+	 //$url='https://www.okcoin.cn/api/v1/cancel_order.do';  //中国站
+	 $res=$this->ok_query($parameters, $url);
+	 return $res;
+	  
+   }
  
- function Fund()
-{
-      $parameters=array("partner"=>$this->partner);
-     
-      $url='https://www.okcoin.com/api/v1/userinfo.do';     //国际站
-	  //  $url='https://www.okcoin.cn/api/v1/userinfo.do';  //中国站
-	  $res=$this->ok_query($parameters, $url);
-	//var_dump($res);
+   function Fund() {
+  	
+         $parameters=array("api_key"=>$this->apiKey);
+         $url='https://www.okcoin.com/api/v1/userinfo.do';     //国际站
+	 //$url='https://www.okcoin.cn/api/v1/userinfo.do';  //中国站
+	 $res=$this->ok_query($parameters, $url);
+ 	 //var_dump($res);
 	 if($res["result"] ){
-	  $res=array("result"=>true, "Frozen"=>array("BTC"=>$res["info"]["funds"]["freezed"]["btc"], "CNY"=>$res["info"]["funds"][     "freezed"]["cny"]),
-	   "Free"=>array("BTC"=>$res["info"]["funds"]["free"]["btc"], "CNY"=>$res["info"]["funds"]["free"]["cny"]) ); 
-	  return $res;
+	      $res=array("result"=>true, "Frozen"=>array("BTC"=>$res["info"]["funds"]["freezed"]["btc"], "CNY"=>$res["info"]["funds"]["freezed"]["cny"]),
+	      "Free"=>array("BTC"=>$res["info"]["funds"]["free"]["btc"], "CNY"=>$res["info"]["funds"]["free"]["cny"]) ); 
+	      return $res;
 	  }
-	 
 	  $res=array("result"=>false);
 	  return $res;
-}	
+	  
+   }	
 
- function  GetOrder($OrderID){
-         $parameters=array("order_id"=>$OrderID,"partner"=>$this->partner,"symbol"=>"btc_usd"); //注意 symbol  国际站：btc_usd/ltc_usd  国内站：btc_cny/ltc_cny
-		 $url= 'https://www.okcoin.com/api/v1/order_info.do';   //国际站
-		 //$url= 'https://www.okcoin.cn/api/v1/order_info.do'; //中国站
-		 $res=$this->ok_query($parameters, $url);
-		 return $res;
-}
+   function GetOrder($OrderID){
+   	
+         $parameters=array("api_key"=>$this->apiKey,"order_id"=>$OrderID,"symbol"=>"btc_usd"); //注意 symbol  国际站：btc_usd/ltc_usd  国内站：btc_cny/ltc_cny
+         $url= 'https://www.okcoin.com/api/v1/order_info.do';   //国际站
+         //$url= 'https://www.okcoin.cn/api/v1/order_info.do'; //中国站
+         $res=$this->ok_query($parameters, $url);
+         return $res;
+         
+    }
+    
 }
 ?>
 <body>

@@ -17,15 +17,14 @@ import com.okcoin.rest.future.IFutureRestApi;
  */
 public class FutureRestApiV1 implements IFutureRestApi {
 
-	// 密钥
 	private String secret_key;
-	// 唯一用户号
-	private String partner;
+	
+	private String api_key;
 	
 	private String url_prex;
 
-	public FutureRestApiV1(String url_prex,String partner, String secret_key) {
-		this.partner = partner;
+	public FutureRestApiV1(String url_prex,String api_key, String secret_key) {
+		this.api_key = api_key;
 		this.secret_key = secret_key;
 		this.url_prex = url_prex;
 	}
@@ -197,8 +196,8 @@ public class FutureRestApiV1 implements IFutureRestApi {
 		if (orderId != null) {
 			params.put("order_id", orderId);
 		}
-		if (partner != null) {
-			params.put("partner", partner);
+		if (api_key != null) {
+			params.put("api_key", api_key);
 		}
 		if (symbol != null) {
 			params.put("symbol", symbol);
@@ -227,8 +226,8 @@ public class FutureRestApiV1 implements IFutureRestApi {
 		if (contractType != null) {
 			params.put("contract_type", contractType);
 		}
-		if (partner != null) {
-			params.put("partner", partner);
+		if (api_key != null) {
+			params.put("api_key", api_key);
 		}
 		if (price != null) {
 			params.put("price", price);
@@ -257,10 +256,10 @@ public class FutureRestApiV1 implements IFutureRestApi {
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
 
-		    params.put("partner", partner);
+		params.put("api_key", api_key);
 
-		    String sign = MD5Util.buildMysignV1(params, this.secret_key);
-		    params.put("sign", sign);
+		String sign = MD5Util.buildMysignV1(params, this.secret_key);
+		params.put("sign", sign);
 		
 		
 		// 发送post请求
@@ -277,7 +276,7 @@ public class FutureRestApiV1 implements IFutureRestApi {
 			throws HttpException, IOException {
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
-		    params.put("partner", partner);
+		    params.put("api_key", api_key);
 
 		    String sign = MD5Util.buildMysignV1(params, this.secret_key);
 		    params.put("sign", sign);
@@ -303,7 +302,7 @@ public class FutureRestApiV1 implements IFutureRestApi {
 		if (contractType != null) {
 			params.put("contract_type", contractType);
 		}
-		params.put("partner", partner);
+		params.put("api_key", api_key);
 		String sign = MD5Util.buildMysignV1(params, secret_key);
 		System.out.println("sign  "+sign);
 		params.put("sign", sign);
@@ -328,7 +327,7 @@ public class FutureRestApiV1 implements IFutureRestApi {
 		if (contractType != null) {
 			params.put("contract_type", contractType);
 		}
-		params.put("partner", partner);
+		params.put("api_key", api_key);
 		String sign = MD5Util.buildMysignV1(params, secret_key);
 		params.put("sign", sign);
 		// 发送post请求
@@ -354,8 +353,8 @@ public class FutureRestApiV1 implements IFutureRestApi {
 		if (orderId != null) {
 			params.put("order_id", orderId);
 		}
-		if (partner != null) {
-			params.put("partner", partner);
+		if (api_key != null) {
+			params.put("api_key", api_key);
 		}
 		if (pageLength != null) {
 			params.put("page_length", pageLength);
@@ -377,9 +376,5 @@ public class FutureRestApiV1 implements IFutureRestApi {
 		return result;
 
 	}
-
-
-
-
-
+	
 }
