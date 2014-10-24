@@ -77,7 +77,7 @@ function  Trade($Price,$Amount,$Direction){
 	                  "type"=>strtolower($Direction));
 					  
       $url= 'https://www.okcoin.com/api/v1/trade.do';		//国际站
-       //  $url= 'https://www.okcoin.cn/api/trade.do';  //中国站
+       //  $url= 'https://www.okcoin.cn/api/v1/trade.do';  //中国站
 	  $res=$this->ok_query($parameters, $url);
 	  return $res;
 }		
