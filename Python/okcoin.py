@@ -26,7 +26,7 @@ class OKCoin():
         }
         conn = httplib.HTTPSConnection("www.okcoin.cn", timeout=10) # 注意国际站 需要将 www.okcoin.cn 换成www.okcoin.com
         temp_params = urllib.urlencode(params)
-        conn.request("POST", "/v1/api/%s.do" % method, temp_params, headers)
+        conn.request("POST", "/api/v1/%s.do" % method, temp_params, headers)
         response = conn.getresponse()
         data = json.load(response)
 		params.clear()
@@ -40,7 +40,7 @@ class OKCoin():
 
     def __api_call(self, method, pair):
         conn = httplib.HTTPSConnection("www.okcoin.cn", timeout=10) # 注意国际站 需要将 www.okcoin.cn 换成www.okcoin.com
-        conn.request("GET", "/v1/api/%s.do?symbol=%s" % (method, pair))
+        conn.request("GET", "/api/v1/%s.do?symbol=%s" % (method, pair))
         response = conn.getresponse()
         data = json.load(response)
         conn.close()
