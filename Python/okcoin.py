@@ -15,8 +15,8 @@ class OKCoin():
         for k in sorted(params.keys()):
             if len(s) > 0:
                 s += '&'
-			s += k + '=' + str(params[k])
-        return md5.new(s + self.api_secret).hexdigest().upper()
+		s += k + '=' + str(params[k])
+        return md5.new(s + '&secret_key='+self.api_secret).hexdigest().upper()
 
     def __tapi_call(self, method, params={}):
         params["partner"] = self.api_key
@@ -24,10 +24,9 @@ class OKCoin():
         headers = {
             "Content-type" : "application/x-www-form-urlencoded",
         }
-       # conn = httplib.HTTPSConnection("www.okcoin.com", timeout=10)  #国际站
-        conn = httplib.HTTPSConnection("www.okcoin.cn", timeout=10)    #国内站
+        conn = httplib.HTTPSConnection("www.okcoin.cn", timeout=10) # 注意国际站 需要将 www.okcoin.cn 换成www.okcoin.com
         temp_params = urllib.urlencode(params)
-        conn.request("POST", "/api/%s.do" % method, temp_params, headers)
+        conn.request("POST", "/v1/api/%s.do" % method, temp_params, headers)
         response = conn.getresponse()
         data = json.load(response)
 		params.clear()
@@ -40,17 +39,14 @@ class OKCoin():
             raise Exception("error code %s" % data["errorCode"])
 
     def __api_call(self, method, pair):
-       # conn = httplib.HTTPSConnection("www.okcoin.com", timeout=10) #国际站
-        conn = httplib.HTTPSConnection("www.okcoin.cn", timeout=10) #国内站
-        conn.request("GET", "/api/%s.do?symbol=%s" % (method, pair))
+        conn = httplib.HTTPSConnection("www.okcoin.cn", timeout=10) # 注意国际站 需要将 www.okcoin.cn 换成www.okcoin.com
+        conn.request("GET", "/v1/api/%s.do?symbol=%s" % (method, pair))
         response = conn.getresponse()
         data = json.load(response)
         conn.close()
         return data
 
     def get_ticker(self, pair):
-        # https://www.okcoin.com/api/ticker.do?symbol=ltc_cny  国际站
-        # https://www.okcoin.cn/api/ticker.do?symbol=ltc_cny  国内站
         data = self.__api_call("ticker", pair)
         if "ticker" in data:
             return {
@@ -63,8 +59,6 @@ class OKCoin():
             raise Exception("Error when get ticker")
 
     def get_depth(self, pair):
-        # https://www.okcoin.com/api/depth.do?symbol=ltc_cny 国际站
-        # https://www.okcoin.cn/api/depth.do?symbol=ltc_cny 国内站
         return self.__api_call("depth", pair)
 
     def get_funds(self):
@@ -72,12 +66,12 @@ class OKCoin():
 
     def get_orders(self, pair, order_id=-1):
         params = { "symbol"   : pair, "order_id" : order_id }
-        result = self.__tapi_call('getorder', params)
+        result = self.__tapi_call('order_info', params)
         return result["orders"]
 
     def trade(self, tpair, ttype, price, amount):
         params = {
-            "symbol" : tpair,
+            "symbol" : tpair, # 国际站：btc_usd/ltc_usd  国内站  btc_cny/ltc_cny
             "type"   : ttype,
             "rate"   : price,
             "amount" : amount
@@ -95,5 +89,5 @@ class OKCoin():
 
     def cancel(self, pair, order_id):
         params = { "symbol": pair, "order_id" : order_id }
-        return type(self.__tapi_call('cancelorder', params)) == dict
+        return type(self.__tapi_call('cancel_order', params)) == dict
 
