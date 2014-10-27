@@ -17,18 +17,10 @@ public class FutureClient {
 
 	public static void main(String[] args) throws HttpException, IOException {
 
-		//OKCoin唯一用户号,每个用户唯一持有一个
-		String partner = "";
-		
-		//用户私钥
-		String secret_key = "";
-	    
-		//请求URL 国际站https://www.okcoin.com
-	        // 国内站https://www.okcoin.cn
-		
-		String url_prex = "";
-		
-
+	
+		String partner = "";  //OKCoin唯一用户号,每个用户唯一持有一个
+       	        String secret_key = "";  //用户私钥
+ 	        String url_prex = "";  //注意：请求URL 国际站https://www.okcoin.com ; 国内站https://www.okcoin.cn
 		/**
 		 *  get请求无需发送身份认证,通常用于获取行情，市场深度等公共信息
 		 */
