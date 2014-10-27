@@ -11,22 +11,22 @@ import org.apache.commons.httpclient.HttpException;
  */
 public interface IStockRestApi {
 
-    /**
-     * 行情
-     * @param symbol btc_usd:比特币    ltc_usd :莱特币
-     * @return
-     * @throws IOException 
-     * @throws HttpException 
-     */
-	public String ticker(String symbol) throws HttpException, IOException;
+      /**
+       * 行情
+       * @param symbol btc_usd:比特币    ltc_usd :莱特币
+       * @return
+       * @throws IOException 
+       * @throws HttpException 
+      */
+       public String ticker(String symbol) throws HttpException, IOException;
 
-    /**
-     * 市场深度
-     * @param symbol btc_usd:比特币    ltc_usd :莱特币
-     * @return
-     * @throws IOException 
-     * @throws HttpException 
-     */
+       /**
+        * 市场深度
+        * @param symbol btc_usd:比特币    ltc_usd :莱特币
+        * @return
+        * @throws IOException 
+        * @throws HttpException 
+       */
 	public String depth(String symbol) throws HttpException, IOException;
 
 	/**
@@ -36,7 +36,7 @@ public interface IStockRestApi {
 	 * @return
 	 * @throws IOException 
 	 * @throws HttpException 
-	 */
+	*/
 	public String trades(String symbol, String since) throws HttpException, IOException;
 
 	/**
@@ -44,7 +44,7 @@ public interface IStockRestApi {
 	 * @return
 	 * @throws IOException 
 	 * @throws HttpException 
-	 */
+	*/
 	public String userinfo() throws HttpException, IOException;
 
 	/**
@@ -59,7 +59,7 @@ public interface IStockRestApi {
 	 * @return
 	 * @throws IOException 
 	 * @throws HttpException 
-	 */
+	*/
 	public String trade(String symbol, String type,
 			String price, String amount) throws HttpException, IOException;
 
@@ -72,7 +72,7 @@ public interface IStockRestApi {
 	 * @return
 	 * @throws IOException 
 	 * @throws HttpException 
-	 */
+	*/
 	public String batch_trade( String symbol, String type,
 			String orders_data) throws HttpException, IOException;
 
@@ -83,7 +83,7 @@ public interface IStockRestApi {
 	 * @return
 	 * @throws IOException 
 	 * @throws HttpException 
-	 */
+	*/
 	public String cancel_order(String symbol, String order_id) throws HttpException, IOException;
 
 	/**
@@ -93,7 +93,7 @@ public interface IStockRestApi {
 	 * @return
 	 * @throws IOException 
 	 * @throws HttpException 
-	 */
+	*/
 	public String order_info(String symbol, String order_id) throws HttpException, IOException;
 
 	/**
@@ -104,7 +104,7 @@ public interface IStockRestApi {
 	 * @return
 	 * @throws IOException 
 	 * @throws HttpException 
-	 */
+	*/
 	public String orders_info(String type, String symbol,
 			String order_id) throws HttpException, IOException;
 
@@ -117,7 +117,7 @@ public interface IStockRestApi {
 	 * @return
 	 * @throws IOException 
 	 * @throws HttpException 
-	 */
+	*/
 	public String order_history(String symbol, String status,
 			String current_page, String page_length) throws HttpException, IOException;
 
