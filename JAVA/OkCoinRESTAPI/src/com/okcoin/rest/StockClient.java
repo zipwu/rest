@@ -33,7 +33,7 @@ public class StockClient {
 	     * 发送post请求之前，程序会做自动加密，生成签名。
 	     * 
 	    */
-	    IStockRestApi stockPost = new StockRestApi(url_prex,partner,secret_key);
+	    IStockRestApi stockPost = new StockRestApi(url_prex, partner, secret_key);
 		
 	    //现货行情
 	    stockGet.ticker("btc_usd");
@@ -60,7 +60,7 @@ public class StockClient {
 	    stockPost.cancel_order("btc_usd", tradeOrderV1));
 		
 	    //现货批量下单
-	    stockPost.batch_trade("btc_usd", "buy", "[{price:50, amount:0.02},{price:50, amount:0.03}]");
+	    stockPost.batch_trade("btc_usd", "buy", "[{price:50, amount:0.02}, {price:50, amount:0.03}]");
 
 	    //批量获取用户订单
 	    stockPost.orders_info("0", "btc_usd", "125420341, 125420342");
