@@ -51,9 +51,9 @@ class OkAPI {
 	$ans=array("asks"=>$res_ask, "bids"=>$res_bid);
 	return $ans;
 	
-  }
+   }
        
-  function Trade($Price, $Amount, $Direction){
+   function Trade($Price, $Amount, $Direction){
 
 	$parameters=array("amount"=>$Amount, "partner"=>$this->partner, "rate"=>$Price, "symbol"=>'btc_usd',
 	                  "type"=>strtolower($Direction));
@@ -62,9 +62,9 @@ class OkAPI {
 	 $res=$this->ok_query($parameters, $url);
 	 return $res;
 	 
-  }		
+   }		
 		
-  function CancelOrder($OrderID){
+   function CancelOrder($OrderID){
 	
 	 $parameters=array("order_id"=>$OrderID,"partner"=>$this->partner,"symbol"=>"btc_usd");  //注意 symbol  国际站：btc_usd/ltc_usd  国内站：btc_cny/ltc_cny
          $url='https://www.okcoin.com/api/v1/cancel_order.do';      //国际站
