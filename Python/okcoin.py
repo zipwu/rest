@@ -73,7 +73,7 @@ class OKCoin():
         params = {
             "symbol" : tpair, # 国际站：btc_usd/ltc_usd  国内站  btc_cny/ltc_cny
             "type"   : ttype,
-            "rate"   : price,
+            "price"   : price,
             "amount" : amount
         }
         result = self.__tapi_call('trade', params)
