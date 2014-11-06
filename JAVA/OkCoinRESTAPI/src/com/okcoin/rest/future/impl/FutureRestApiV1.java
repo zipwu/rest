@@ -252,6 +252,31 @@ public class FutureRestApiV1 implements IFutureRestApi {
 		return result;
 	}
 
+        @Override
+	public String future_batch_trade(String symbol, String contractType,String orders_data)
+			throws HttpException, IOException {
+		// 构造参数签名
+		Map<String, String> params = new HashMap<String, String>();
+		if(symbol!=null){
+			params.put("symbol", symbol);
+		}
+		if(contractType!=null){
+			params.put("contract_type", contractType);
+		}
+		if(orders_data!=null){
+			params.put("orders_data", orders_data);
+		}
+		params.put("partner", partner);
+		String sign = MD5Util.buildMysignV1(params, secret_key);
+		params.put("sign", sign);
+		// 发送post请求
+
+		HttpUtilManager httpUtil = HttpUtilManager.getInstance();
+		String result = httpUtil.requestHttpPost(url_prex,this.FUTURE_BATCH_TRADE_URL,
+				params);
+		return result;
+	}
+	
 	@Override
 	public String future_userinfo() throws HttpException, IOException {
 		// 构造参数签名
