@@ -83,6 +83,17 @@ public interface IFutureRestApi {
       */
       public String future_trade(String symbol,String contractType,String price,String amount,String type,String matchPrice) throws HttpException, IOException;
 	
+       /**
+	* 期货批量下单
+	* @param symbol btc_usd:比特币    ltc_usd :莱特币
+	* @param contractType 合约类型: this_week:当周   next_week:下周   month:当月   quarter:季度
+	* @param orders_data  包括price,amount,type,match_price 参考future_trade接口
+	* @return
+	* @throws HttpException
+	* @throws IOException
+      */
+      public String future_batch_trade(String symbol,String contractType,String orders_data) throws HttpException, IOException;
+
       /**
        * 期货账户信息
        * @return
