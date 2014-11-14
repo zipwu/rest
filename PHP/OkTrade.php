@@ -12,8 +12,8 @@ var_dump( $Ok->Trade(1000, 0.11, "buy"));
 //var_dump($Ok->GetOrder("2345"));
 class OkAPI {
 
-   var $partner = ""//"45678912";
-   var $secretKey = "";//"19535CF3D949D4EF56F8D3D4ED78C505";
+   var $partner = "";
+   var $secretKey = "";
 
    protected function ok_query($parameters, $url){
 	   
