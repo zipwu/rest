@@ -55,7 +55,7 @@ class OkAPI {
        
    function Trade($Price, $Amount, $Direction){
 
-	$parameters=array("amount"=>$Amount, "partner"=>$this->partner, "rate"=>$Price, "symbol"=>'btc_usd',
+	$parameters=array("amount"=>$Amount, "partner"=>$this->partner, "price"=>$Price, "symbol"=>'btc_usd',
 	                  "type"=>strtolower($Direction));
          $url= 'https://www.okcoin.com/api/v1/trade.do';//国际站
          //  $url= 'https://www.okcoin.cn/api/v1/trade.do';//中国站
