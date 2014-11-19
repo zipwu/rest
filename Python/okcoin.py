@@ -13,8 +13,8 @@ class OKCoin():
     def __signature(self, params):
         s = ''
         for k in sorted(params.keys()):
-            	if len(s) > 0:
-                	s += '&'
+        	if len(s) > 0:
+        		s += '&'
 		s += k + '=' + str(params[k])
         return hashlib.md5(s + '&secret_key='+self.api_secret).hexdigest().upper()
 
