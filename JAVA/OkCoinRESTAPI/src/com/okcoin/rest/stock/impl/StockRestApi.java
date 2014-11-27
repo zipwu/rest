@@ -13,15 +13,14 @@ import com.okcoin.rest.stock.IStockRestApi;
 
 public class StockRestApi implements IStockRestApi{
 
-	// 密钥
 	private String secret_key;
-	// 唯一用户ID
-	private String partner;
+	
+	private String api_key;
 	
 	private String url_prex;
 	
-	public StockRestApi(String url_prex,String partner,String secret_key){
-		this.partner = partner;
+	public StockRestApi(String url_prex,String api_key,String secret_key){
+		this.api_key = api_key;
 		this.secret_key = secret_key;
 		this.url_prex = url_prex;
 	}
@@ -132,7 +131,7 @@ public class StockRestApi implements IStockRestApi{
 	public String userinfo() throws HttpException, IOException {
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("partner", partner);
+		params.put("api_key", api_key);
 		String sign = MD5Util.buildMysignV1(params, this.secret_key);
 		params.put("sign", sign);
 		
@@ -149,7 +148,7 @@ public class StockRestApi implements IStockRestApi{
 			String price, String amount) throws HttpException, IOException {
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("partner", partner);
+		params.put("api_key", api_key);
 		if(symbol!=null){
 			params.put("symbol", symbol);
 		}
@@ -178,7 +177,7 @@ public class StockRestApi implements IStockRestApi{
 			String orders_data) throws HttpException, IOException {
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("partner", partner);
+		params.put("api_key", api_key);
 		if(symbol!=null){
 			params.put("symbol", symbol);
 		}
@@ -203,7 +202,7 @@ public class StockRestApi implements IStockRestApi{
 	public String cancel_order(String symbol, String order_id) throws HttpException, IOException {
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("partner", partner);
+		params.put("api_key", api_key);
 		if(symbol!=null){
 			params.put("symbol", symbol);
 		}
@@ -226,7 +225,7 @@ public class StockRestApi implements IStockRestApi{
 	public String order_info(String symbol, String order_id) throws HttpException, IOException {
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("partner", partner);
+		params.put("api_key", api_key);
 		if(symbol!=null){
 			params.put("symbol", symbol);
 		}
@@ -250,7 +249,7 @@ public class StockRestApi implements IStockRestApi{
 			String order_id) throws HttpException, IOException {
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("partner", partner);
+		params.put("api_key", api_key);
 		if(type!=null){
 			params.put("type", type);
 		}
@@ -277,7 +276,7 @@ public class StockRestApi implements IStockRestApi{
 			String current_page, String page_length) throws HttpException, IOException {
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("partner", partner);
+		params.put("api_key", api_key);
 		if(symbol!=null){
 			params.put("symbol", symbol);
 		}
@@ -310,12 +309,14 @@ public class StockRestApi implements IStockRestApi{
 		this.secret_key = secret_key;
 	}
 
-	public String getPartner() {
-		return partner;
+	
+
+	public String getApi_key() {
+		return api_key;
 	}
 
-	public void setPartner(String partner) {
-		this.partner = partner;
+	public void setApi_key(String api_key) {
+		this.api_key = api_key;
 	}
 
 	public String getUrl_prex() {
