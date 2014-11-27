@@ -17,8 +17,8 @@ public class StockClient {
 
 	public static void main(String[] args) throws HttpException, IOException{
 		
-	    String partner = "";  //OKCoin唯一用户号,每个用户唯一持有一个
-       	    String secret_key = "";  //用户私钥
+	    String api_key = "";  //OKCoin申请的apiKey
+       	    String secret_key = "";  //OKCoin 申请的secret_key
  	    String url_prex = "";  //注意：请求URL 国际站https://www.okcoin.com ; 国内站https://www.okcoin.cn
 	
 	    /**
@@ -28,12 +28,12 @@ public class StockClient {
 	    IStockRestApi stockGet = new StockRestApi(url_prex);
 		
 	    /**
-	     * post请求需发送身份认证，获取用户个人相关信息时，需要指定partner,与secretKey并与参数进行签名，
-	     * 此处对构造方法传入partner与secretKey,在请求用户相关方法时则无需再传入，
+	     * post请求需发送身份认证，获取用户个人相关信息时，需要指定api_key,与secret_key并与参数进行签名，
+	     * 此处对构造方法传入api_key与secret_key,在请求用户相关方法时则无需再传入，
 	     * 发送post请求之前，程序会做自动加密，生成签名。
 	     * 
 	    */
-	    IStockRestApi stockPost = new StockRestApi(url_prex, partner, secret_key);
+	    IStockRestApi stockPost = new StockRestApi(url_prex, api_key, secret_key);
 		
 	    //现货行情
 	    stockGet.ticker("btc_usd");
