@@ -12,7 +12,7 @@ var_dump( $Ok->Trade(1000, 0.11, "buy"));
 //var_dump($Ok->GetOrder("2345"));
 class OkAPI {
 
-   var $partner = "";
+   var $apiKey = "";
    var $secretKey = "";
 
    protected function ok_query($parameters, $url){
@@ -22,7 +22,7 @@ class OkAPI {
 	$sign=md5 ($post_data."&secret_key=".$this->secretKey );
 	$sign=strtoupper($sign);
 	var_dump($sign);
-	$post="partner=".$this->partner."&sign=".$sign."&".$post_data;
+	$post="api_key=".$this->apiKey."&sign=".$sign."&".$post_data;
 	var_dump($post);
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -55,7 +55,7 @@ class OkAPI {
        
    function Trade($Price, $Amount, $Direction){
 
-	$parameters=array("amount"=>$Amount, "partner"=>$this->partner, "price"=>$Price, "symbol"=>'btc_usd',
+	$parameters=array("amount"=>$Amount, "api_key"=>$this->apiKey, "price"=>$Price, "symbol"=>'btc_usd',
 	                  "type"=>strtolower($Direction));
          $url= 'https://www.okcoin.com/api/v1/trade.do';//国际站
          //  $url= 'https://www.okcoin.cn/api/v1/trade.do';//中国站
@@ -66,7 +66,7 @@ class OkAPI {
 		
    function CancelOrder($OrderID){
 	
-	 $parameters=array("order_id"=>$OrderID,"partner"=>$this->partner,"symbol"=>"btc_usd");  //注意 symbol  国际站：btc_usd/ltc_usd  国内站：btc_cny/ltc_cny
+	 $parameters=array("api_key"=>$this->apiKey,"order_id"=>$OrderID,"symbol"=>"btc_usd");  //注意 symbol  国际站：btc_usd/ltc_usd  国内站：btc_cny/ltc_cny
          $url='https://www.okcoin.com/api/v1/cancel_order.do';      //国际站
 	 //$url='https://www.okcoin.cn/api/v1/cancel_order.do';  //中国站
 	 $res=$this->ok_query($parameters, $url);
@@ -76,7 +76,7 @@ class OkAPI {
  
    function Fund() {
   	
-         $parameters=array("partner"=>$this->partner);
+         $parameters=array("api_key"=>$this->apiKey);
          $url='https://www.okcoin.com/api/v1/userinfo.do';     //国际站
 	 //$url='https://www.okcoin.cn/api/v1/userinfo.do';  //中国站
 	 $res=$this->ok_query($parameters, $url);
@@ -93,7 +93,7 @@ class OkAPI {
 
    function GetOrder($OrderID){
    	
-         $parameters=array("order_id"=>$OrderID,"partner"=>$this->partner,"symbol"=>"btc_usd"); //注意 symbol  国际站：btc_usd/ltc_usd  国内站：btc_cny/ltc_cny
+         $parameters=array("api_key"=>$this->apiKey,"order_id"=>$OrderID,"symbol"=>"btc_usd"); //注意 symbol  国际站：btc_usd/ltc_usd  国内站：btc_cny/ltc_cny
          $url= 'https://www.okcoin.com/api/v1/order_info.do';   //国际站
          //$url= 'https://www.okcoin.cn/api/v1/order_info.do'; //中国站
          $res=$this->ok_query($parameters, $url);
