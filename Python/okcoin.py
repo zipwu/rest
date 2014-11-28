@@ -19,7 +19,7 @@ class OKCoin():
         return hashlib.md5(s + '&secret_key='+self.api_secret).hexdigest().upper()
 
     def __tapi_call(self, method, params={}):
-        params["partner"] = self.api_key
+        params["api_key"] = self.api_key
         params["sign"] = self.__signature(params)
         headers = {
             "Content-type" : "application/x-www-form-urlencoded",
