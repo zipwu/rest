@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 #用于访问OKCOIN 期货REST API
 from HttpMD5Util import buildMySign,httpGet,httpPost
