@@ -9,7 +9,7 @@ from OkcoinFutureAPI import OKCoinFuture
 #初始化apikey，secretkey,url
 apikey = 'XXXXX'
 secretkey = 'XXXXXXXXXXXXXXXXXXXXXXX'
-okcoinRESTURL = 'www.okcoin.com'
+okcoinRESTURL = 'www.okcoin.cn'   #请求注意：国际账号需要 修改为 www.okcoin.com  
 
 #现货API
 okcoinSpot = OKCoinSpot(okcoinRESTURL,apikey,secretkey)
