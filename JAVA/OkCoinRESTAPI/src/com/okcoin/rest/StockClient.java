@@ -24,7 +24,7 @@ public class StockClient {
 	    /**
 	     * get请求无需发送身份认证,通常用于获取行情，市场深度等公共信息
 	     * 
-	    * /
+	    */
 	    IStockRestApi stockGet = new StockRestApi(url_prex);
 		
 	    /**
