@@ -9,7 +9,7 @@ from OkcoinFutureAPI import OKCoinFuture
 #初始化apikey，secretkey,url
 apikey = 'XXXXX'
 secretkey = 'XXXXXXXXXXXXXXXXXXXXXXX'
-okcoinRESTURL = 'www.okcoin.cn'   #请求注意：国际账号需要 修改为 www.okcoin.com  
+okcoinRESTURL = 'www.okcoin.com'   #请求注意：国际账号需要 修改为 www.okcoin.com  国内站账号需要修改为www.okcoin.cn
 
 #现货API
 okcoinSpot = OKCoinSpot(okcoinRESTURL,apikey,secretkey)
@@ -21,7 +21,7 @@ print u' 现货行情 '
 print okcoinSpot.ticker('btc_usd')
 
 print u' 现货深度 '
-print okcoinSpot.depth()
+print okcoinSpot.depth('btc_usd')
 
 print u' 现货历史交易信息 '
 print okcoinSpot.trades()
