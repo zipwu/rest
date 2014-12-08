@@ -24,7 +24,7 @@ class OKCoinSpot:
         params=''
         if symbol:
             params = 'symbol=%(symbol)s' %{'symbol':symbol}
-        return httpGet(self.__url,DEPTH_RESOURCE,symbol) 
+        return httpGet(self.__url,DEPTH_RESOURCE,params) 
 
     #获取OKCOIN现货历史交易信息
     def trades(self,symbol = ''):
@@ -32,7 +32,7 @@ class OKCoinSpot:
         params=''
         if symbol:
             params = 'symbol=%(symbol)s' %{'symbol':symbol}
-        return httpGet(self.__url,TRADES_RESOURCE,symbol)
+        return httpGet(self.__url,TRADES_RESOURCE,params)
     
     #获取用户现货账户信息
     def userinfo(self):
