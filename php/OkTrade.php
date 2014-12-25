@@ -22,7 +22,7 @@ class OkAPI {
 	$sign=md5 ($post_data."&secret_key=".$this->secretKey );
 	$sign=strtoupper($sign);
 	var_dump($sign);
-	$post=.$post_data."&sign=".$sign;
+	$post=$post_data."&sign=".$sign;
 	var_dump($post);
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
