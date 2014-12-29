@@ -43,15 +43,18 @@ class OKCoinSpot:
         return httpPost(self.__url,USERINFO_RESOURCE,params)
 
     #现货交易
-    def trade(self,symbol,tradeType,price,amount):
+    def trade(self,symbol,tradeType,price='',amount=''):
         TRADE_RESOURCE = "/api/v1/trade.do"
         params = {
             'api_key':self.__apikey,
             'symbol':symbol,
-            'type':tradeType,
-            'price':price,
-            'amount':amount
+            'type':tradeType
         }
+        if price:
+            params['price'] = price
+        if amount:
+            params['amount'] = amount
+            
         params['sign'] = buildMySign(params,self.__secretkey)
         return httpPost(self.__url,TRADE_RESOURCE,params)
 
