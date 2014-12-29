@@ -9,6 +9,7 @@ import org.apache.http.HttpException;
 
 import com.okcoin.rest.HttpUtilManager;
 import com.okcoin.rest.MD5Util;
+import com.okcoin.rest.StringUtil;
 import com.okcoin.rest.stock.IStockRestApi;
 
 
@@ -84,7 +85,7 @@ public class StockRestApi implements IStockRestApi{
 	public String ticker(String symbol) throws HttpException, IOException {
 		HttpUtilManager httpUtil = HttpUtilManager.getInstance();
 		String param = "";
-		if (symbol != null) {
+		if(!StringUtil.isEmpty(symbol )) {
 			if (!param.equals("")) {
 				param += "&";
 			}
@@ -98,8 +99,8 @@ public class StockRestApi implements IStockRestApi{
 	public String depth(String symbol) throws HttpException, IOException {
 		HttpUtilManager httpUtil = HttpUtilManager.getInstance();
 		String param = "";
-		if (symbol != null) {
-			if (!param.equals("")) {
+		if(!StringUtil.isEmpty(symbol )) {
+			if(!param.equals("")) {
 				param += "&";
 			}
 			param += "symbol=" + symbol;
@@ -112,13 +113,13 @@ public class StockRestApi implements IStockRestApi{
 	public String trades(String symbol, String since) throws HttpException, IOException {
 		HttpUtilManager httpUtil = HttpUtilManager.getInstance();
 		String param = "";
-		if (symbol != null) {
+		if(!StringUtil.isEmpty(symbol )) {
 			if (!param.equals("")) {
 				param += "&";
 			}
 			param += "symbol=" + symbol;
 		}
-		if (since != null) {
+		if(!StringUtil.isEmpty(since )) {
 			if (!param.equals("")) {
 				param += "&";
 			}
@@ -150,16 +151,16 @@ public class StockRestApi implements IStockRestApi{
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("api_key", api_key);
-		if(symbol!=null){
+		if(!StringUtil.isEmpty(symbol)){
 			params.put("symbol", symbol);
 		}
-		if(type!=null){
+		if(!StringUtil.isEmpty(type)){
 			params.put("type", type);
 		}
-		if(price!=null){
+		if(!StringUtil.isEmpty(price)){
 			params.put("price", price);
 		}
-		if(amount!=null){
+		if(!StringUtil.isEmpty(amount)){
 			params.put("amount", amount);
 		}
 		String sign = MD5Util.buildMysignV1(params, this.secret_key);
@@ -179,13 +180,13 @@ public class StockRestApi implements IStockRestApi{
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("api_key", api_key);
-		if(symbol!=null){
+		if(!StringUtil.isEmpty(symbol)){
 			params.put("symbol", symbol);
 		}
-		if(type!=null){
+		if(!StringUtil.isEmpty(type)){
 			params.put("type", type);
 		}
-		if(orders_data!=null){
+		if(!StringUtil.isEmpty(orders_data)){
 			params.put("orders_data", orders_data);
 		}
 		String sign = MD5Util.buildMysignV1(params, this.secret_key);
@@ -204,10 +205,10 @@ public class StockRestApi implements IStockRestApi{
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("api_key", api_key);
-		if(symbol!=null){
+		if(!StringUtil.isEmpty(symbol)){
 			params.put("symbol", symbol);
 		}
-		if(order_id!=null){
+		if(!StringUtil.isEmpty(order_id)){
 			params.put("order_id", order_id);
 		}
 
@@ -227,10 +228,10 @@ public class StockRestApi implements IStockRestApi{
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("api_key", api_key);
-		if(symbol!=null){
+		if(!StringUtil.isEmpty(symbol)){
 			params.put("symbol", symbol);
 		}
-		if(order_id!=null){
+		if(!StringUtil.isEmpty(order_id)){
 			params.put("order_id", order_id);
 		}
 
@@ -251,13 +252,13 @@ public class StockRestApi implements IStockRestApi{
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("api_key", api_key);
-		if(type!=null){
+		if(!StringUtil.isEmpty(type)){
 			params.put("type", type);
 		}
-		if(symbol!=null){
+		if(!StringUtil.isEmpty(symbol)){
 			params.put("symbol", symbol);
 		}
-		if(order_id!=null){
+		if(!StringUtil.isEmpty(order_id)){
 			params.put("order_id", order_id);
 		}
 
@@ -278,16 +279,16 @@ public class StockRestApi implements IStockRestApi{
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("api_key", api_key);
-		if(symbol!=null){
+		if(!StringUtil.isEmpty(symbol)){
 			params.put("symbol", symbol);
 		}
-		if(status!=null){
+		if(!StringUtil.isEmpty(status)){
 			params.put("status", status);
 		}
-		if(current_page!=null){
+		if(!StringUtil.isEmpty(current_page)){
 			params.put("current_page", current_page);
 		}
-		if(page_length!=null){
+		if(!StringUtil.isEmpty(page_length)){
 			params.put("page_length", page_length);
 		}
 
