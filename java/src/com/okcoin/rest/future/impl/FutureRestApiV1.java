@@ -8,6 +8,7 @@ import org.apache.http.HttpException;
 
 import com.okcoin.rest.HttpUtilManager;
 import com.okcoin.rest.MD5Util;
+import com.okcoin.rest.StringUtil;
 import com.okcoin.rest.future.IFutureRestApi;
 
 /**
@@ -99,13 +100,13 @@ public class FutureRestApiV1 implements IFutureRestApi {
 
 		HttpUtilManager httpUtil = HttpUtilManager.getInstance();
 		String param = "";
-		if (symbol != null) {
+		if (!StringUtil.isEmpty(symbol)) {
 			if (!param.equals("")) {
 				param += "&";
 			}
 			param += "symbol=" + symbol;
 		}
-		if (contractType != null) {
+		if (!StringUtil.isEmpty(contractType )) {
 			if (!param.equals("")) {
 				param += "&";
 			}
@@ -121,7 +122,7 @@ public class FutureRestApiV1 implements IFutureRestApi {
 	public String future_index(String symbol) throws HttpException, IOException {
 		HttpUtilManager httpUtil = HttpUtilManager.getInstance();
 		String param = "";
-		if (symbol != null) {
+		if (!StringUtil.isEmpty(symbol )) {
 			if (!param.equals("")) {
 				param += "&";
 			}
@@ -137,13 +138,13 @@ public class FutureRestApiV1 implements IFutureRestApi {
 			throws HttpException, IOException {
 		HttpUtilManager httpUtil = HttpUtilManager.getInstance();
 		String param = "";
-		if (symbol != null) {
+		if (!StringUtil.isEmpty(symbol )) {
 			if (!param.equals("")) {
 				param += "&";
 			}
 			param += "symbol=" + symbol;
 		}
-		if (contractType != null) {
+		if (!StringUtil.isEmpty(contractType )) {
 			if (!param.equals("")) {
 				param += "&";
 			}
@@ -160,13 +161,13 @@ public class FutureRestApiV1 implements IFutureRestApi {
 			throws HttpException, IOException {
 		HttpUtilManager httpUtil = HttpUtilManager.getInstance();
 		String param = "";
-		if (symbol != null) {
+		if (!StringUtil.isEmpty(symbol )) {
 			if (!param.equals("")) {
 				param += "&";
 			}
 			param += "symbol=" + symbol;
 		}
-		if (contractType != null) {
+		if (!StringUtil.isEmpty(contractType )) {
 			if (!param.equals("")) {
 				param += "&";
 			}
@@ -191,16 +192,16 @@ public class FutureRestApiV1 implements IFutureRestApi {
 			String orderId) throws HttpException, IOException {
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
-		if (contractType != null) {
+		if (!StringUtil.isEmpty(contractType )) {
 			params.put("contract_type", contractType);
 		}
-		if (orderId != null) {
+		if (!StringUtil.isEmpty(orderId )) {
 			params.put("order_id", orderId);
 		}
-		if (api_key != null) {
+		if (!StringUtil.isEmpty(api_key )) {
 			params.put("api_key", api_key);
 		}
-		if (symbol != null) {
+		if (!StringUtil.isEmpty(symbol )) {
 			params.put("symbol", symbol);
 		}
 		String sign = MD5Util.buildMysignV1(params, secret_key);
@@ -221,25 +222,25 @@ public class FutureRestApiV1 implements IFutureRestApi {
 			throws HttpException, IOException {
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
-		if (symbol != null) {
+		if (!StringUtil.isEmpty(symbol )) {
 			params.put("symbol", symbol);
 		}
-		if (contractType != null) {
+		if (!StringUtil.isEmpty(contractType )) {
 			params.put("contract_type", contractType);
 		}
-		if (api_key != null) {
+		if (!StringUtil.isEmpty(api_key )) {
 			params.put("api_key", api_key);
 		}
-		if (price != null) {
+		if (!StringUtil.isEmpty(price )) {
 			params.put("price", price);
 		}
-		if (amount != null) {
+		if (!StringUtil.isEmpty(amount )) {
 			params.put("amount", amount);
 		}
-		if (type != null) {
+		if (!StringUtil.isEmpty(type )) {
 			params.put("type", type);
 		}
-		if (matchPrice != null) {
+		if (!StringUtil.isEmpty(matchPrice )) {
 			params.put("match_price", matchPrice);
 		}
 		String sign = MD5Util.buildMysignV1(params, secret_key);
@@ -297,15 +298,14 @@ public class FutureRestApiV1 implements IFutureRestApi {
 			throws HttpException, IOException {
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
-		if (symbol != null) {
+		if (!StringUtil.isEmpty(symbol )) {
 			params.put("symbol", symbol);
 		}
-		if (contractType != null) {
+		if (!StringUtil.isEmpty(contractType )) {
 			params.put("contract_type", contractType);
 		}
 		params.put("api_key", api_key);
 		String sign = MD5Util.buildMysignV1(params, secret_key);
-		System.out.println("sign  "+sign);
 		params.put("sign", sign);
 		// 发送post请求
 
@@ -322,10 +322,10 @@ public class FutureRestApiV1 implements IFutureRestApi {
 			throws HttpException, IOException {
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
-		if (symbol != null) {
+		if (!StringUtil.isEmpty(symbol )) {
 			params.put("symbol", symbol);
 		}
-		if (contractType != null) {
+		if (!StringUtil.isEmpty(contractType )) {
 			params.put("contract_type", contractType);
 		}
 		params.put("api_key", api_key);
@@ -345,25 +345,25 @@ public class FutureRestApiV1 implements IFutureRestApi {
 			throws HttpException, IOException {
 		// 构造参数签名
 		Map<String, String> params = new HashMap<String, String>();
-		if (contractType != null) {
+		if (!StringUtil.isEmpty(contractType )) {
 			params.put("contract_type", contractType);
 		}
-		if (currentPage != null) {
+		if (!StringUtil.isEmpty(currentPage )) {
 			params.put("current_page", currentPage);
 		}
-		if (orderId != null) {
+		if (!StringUtil.isEmpty(orderId )) {
 			params.put("order_id", orderId);
 		}
-		if (api_key != null) {
+		if (!StringUtil.isEmpty(api_key )) {
 			params.put("api_key", api_key);
 		}
-		if (pageLength != null) {
+		if (!StringUtil.isEmpty(pageLength )) {
 			params.put("page_length", pageLength);
 		}
-		if (symbol != null) {
+		if (!StringUtil.isEmpty(symbol )) {
 			params.put("symbol", symbol);
 		}
-		if (status != null) {
+		if (!StringUtil.isEmpty(status )) {
 			params.put("status", status);
 		}
 		String sign = MD5Util.buildMysignV1(params, secret_key);
