@@ -83,18 +83,19 @@ class OKCoinFuture:
         return httpPost(self.__url,FUTURE_POSITION,params)
 
     #期货下单
-    def future_trade(self,symbol,contractType,price,amount,tradeType,matchPrice,leverRate):
+    def future_trade(self,symbol,contractType,price='',amount='',tradeType='',matchPrice='',leverRate=''):
         FUTURE_TRADE = "/api/v1/future_trade.do?"
         params = {
             'api_key':self.__apikey,
             'symbol':symbol,
             'contract_type':contractType,
-            'price':price,
             'amount':amount,
             'type':tradeType,
             'match_price':matchPrice,
             'lever_rate':leverRate
         }
+        if price:
+            params['price'] = price
         params['sign'] = buildMySign(params,self.__secretkey)
         return httpPost(self.__url,FUTURE_TRADE,params)
 
