@@ -785,7 +785,7 @@ namespace com.okcoin.rest.stock
                 String sign = MD5Util.buildMysignV1(paras, this.secret_key);
                 paras.Add("sign", sign);
                 //发送post请求
-                result = httpUtil.requestHttpPost(url_prex, LEND_DEPTH_URL,
+                result = httpUtil.requestHttpPost(url_prex, BORROWS_INFO_URL,
                         paras);
             }
             catch (Exception e)
