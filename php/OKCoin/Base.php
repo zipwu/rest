@@ -16,7 +16,7 @@ class OKCoinBase {
 	
 	const WEB_BASE = 'https://www.okcoin.com/';//OKCoin国际站
 
-	//const WEB_BASE = 'https://www.okcoin.com/';//OKCoinz中国站
+	//const WEB_BASE = 'https://www.okcoin.cn/';//OKCoin中国站
 	
 	private $_rpc;
 	private $_authentication;
