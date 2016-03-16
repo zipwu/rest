@@ -838,7 +838,7 @@ namespace com.okcoin.rest.future
                 // 发送post请求
 
                 HttpUtilManager httpUtil = HttpUtilManager.getInstance();
-                result = httpUtil.requestHttpPost(url_prex, FUTURE_ORDER_INFO_URL,
+                result = httpUtil.requestHttpPost(url_prex, FUTURE_ORDERS_INFO_URL,
                        paras);
             }
             catch (Exception e)
