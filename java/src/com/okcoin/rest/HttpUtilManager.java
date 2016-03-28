@@ -96,7 +96,11 @@ public class HttpUtilManager {
 		IdleConnectionMonitor();
 		url=url_prex+url;
 		if(param!=null && !param.equals("")){
-			url = url+"?"+param;
+		        if(url.endsWith("?")){
+			    url = url+param;
+			}else{
+			    url = url+"?"+param;
+			}
 		}
 		HttpRequestBase method = this.httpGetMethod(url);
 		method.setConfig(requestConfig);
