@@ -1,4 +1,4 @@
-// API.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+// API.cpp : å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
 //
 
 #include "stdafx.h"
@@ -11,38 +11,39 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 
 	
-	string cn_apiKey = "";							//Çëµ½www.okcoin.cnÉêÇë¡£
-	string cn_secretKey	= "";						//Çëµ½www.okcoin.cnÉêÇë¡£
-	OKCoinApiCn cnapi(cn_apiKey,cn_secretKey);		//¹úÄÚÕ¾
+	string cn_apiKey = "";							//è¯·åˆ°www.okcoin.cnç”³è¯·ã€‚
+	string cn_secretKey	= "";						//è¯·åˆ°www.okcoin.cnç”³è¯·ã€‚
+	OKCoinApiCn cnapi(cn_apiKey,cn_secretKey);		//å›½å†…ç«™
 	string symbolcn = "btc_cny";
 	cnapi.GetTicker(symbolcn);
 	cnapi.DoUserinfo();
 	
 
-	//string com_apiKey		= "";					//Çëµ½www.okcoin.comÉêÇë¡£
-	//string com_secretKey	= "";					//Çëµ½www.okcoin.comÉêÇë¡£
-	//OKCoinApiCom comapi(com_apiKey,com_secretKey);	//¹ú¼ÊÕ¾
+	//string com_apiKey		= "";					//è¯·åˆ°www.okcoin.comç”³è¯·ã€‚
+	//string com_secretKey	= "";					//è¯·åˆ°www.okcoin.comç”³è¯·ã€‚
+	//OKCoinApiCom comapi(com_apiKey,com_secretKey);	//å›½é™…ç«™
 	//string symbolcom = "btc_usd";
 	//comapi.GetTicker(symbolcom);
 	//comapi.DoUserinfo();
 
 	
 	{
-	//ÏÖ»õÏÂµ¥²âÊÔ
+	//ç°è´§ä¸‹å•æµ‹è¯•
 	string type		= "buy";
 	string price	= "1";
 	string amount	= "0.01";
-	comapi.DoTrade(symbolcom,type,price,amount);								//POST /api/v1/trade						ÏÂµ¥½»Ò×
+	string symbol = "btc_cny";
+	cnapi.DoTrade(symbol, type, price, amount);								//POST /api/v1/trade						ä¸‹å•äº¤æ˜“
 	//{"order_id":88861705,"result":true}
 	string since = "88861705";
 	string order_id	= "88861705";
-	comapi.DoCancel_Order(symbolcom,order_id);									//POST /api/v1/order_info					»ñÈ¡ÓÃ»§µÄ¶©µ¥ĞÅÏ¢
+	cnapi.DoCancel_Order(symbol,order_id);										//POST /api/v1/order_info					è·å–ç”¨æˆ·çš„è®¢å•ä¿¡æ¯
 	}
 	
 
 
 	//{
-	//ÆÚ»õÏÂµ¥²âÊÔ
+	//æœŸè´§ä¸‹å•æµ‹è¯•
 	//string symbolcom		=		"ltc_usd";
 	//string contract_type	=		"this_week";
 	//string price			=		"1";
@@ -51,7 +52,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//string match_price		=		"0";
 	//string lever_rate		=		"10";
 
-	//comapi.DoFuture_Trade(symbolcom,contract_type,price,amount,type,match_price,lever_rate);		//POST /api/v1/future_trade				ÆÚ»õÏÂµ¥										//POST /api/v1/future_batch_trade		ÅúÁ¿ÏÂµ¥
+	//comapi.DoFuture_Trade(symbolcom,contract_type,price,amount,type,match_price,lever_rate);		//POST /api/v1/future_trade				æœŸè´§ä¸‹å•										//POST /api/v1/future_batch_trade		æ‰¹é‡ä¸‹å•
 	//{"order_id":862348954,"result":true}
 	//string order_id	= "862348954";
 	//comapi.DoFuture_Cancel(symbolcom,order_id,contract_type);	
