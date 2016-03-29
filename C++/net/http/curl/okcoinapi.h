@@ -1,4 +1,4 @@
-﻿#ifndef __OKCOINAPI_H__
+#ifndef __OKCOINAPI_H__
 #define __OKCOINAPI_H__
 
 #include <string>
@@ -28,7 +28,7 @@ public:
 
 	string GetTicker(string &symbol);																								//Get /api/v1/ticker						获取OKCoin行情
 	string GetDepth(string &symbol,string &size,string &merge);																		//Get /api/v1/depth							获取OKCoin市场深度
-	string GetTrades(string &date,string &date_ms,string &price,string &amount,string &tid,string &type);							//Get /api/v1/trades						获取OKCoin最近600交易信息
+	string GetTrades(string &symbol,string &since);							//Get /api/v1/trades						获取OKCoin最近600交易信息
 	string GetKline(string &symbol,string &type,string &size,string &since);														//Get /api/v1/kline							获取比特币或莱特币的K线数据
 
 
@@ -91,7 +91,7 @@ public:
 	string DoFuture_Index(string &symbol);																							//GET /api/v1/future_index				获取OKCoin期货指数信息
 	string DoExchange_Rate();																										//GET /api/v1/exchange_rate				获取美元人民币汇率
 	string DoFuture_Estimated_Price(string &symbol);																				//GET /api/v1/future_estimated_price	获取交割预估价
-	string DoFuture_Kline(string &symbol,string &contract_type,string &size,string &since);											//GET /api/v1/future_kline				获取期货合约的K线数据
+	string DoFuture_Kline(string &symbol,string &type,string &contract_type,string &size,string &since);											//GET /api/v1/future_kline				获取期货合约的K线数据
 	string DoFuture_Hold_amount(string &symbol,string &contract_type);																//GET /api/v1/future_hold_amount		获取当前可用合约总持仓量
 
 
