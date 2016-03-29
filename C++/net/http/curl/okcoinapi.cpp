@@ -1,4 +1,4 @@
-﻿#include "string.h"
+#include "string.h"
 #include "okcoinapi.h"
 #include <sstream>
 
@@ -34,22 +34,19 @@ string OKCoinApi::GetDepth(string &symbol,string &size,string &merge)				//Get /
 
 
 
-string OKCoinApi::GetTrades(string &date,string &date_ms,string &price,string &amount,string &tid,string &type)			//Get /api/v1/trades	获取OKCoin最近600交易信息
+string OKCoinApi::GetTrades(string &symbol,string &since)			//Get /api/v1/trades	获取OKCoin最近600交易信息
 {
 	Uri uri; urlprotocol.GetUrl(uri,HTTP_API_TYPE_TRADES);
-	uri.AddParam("date",date);
-	uri.AddParam("date_ms",date_ms);
-	uri.AddParam("price",price);
-	uri.AddParam("amount",amount);
-	uri.AddParam("tid",tid);
-	uri.AddParam("type",type);
+	uri.AddParam("symbol",symbol);
+	uri.AddParam("since",since);
 	uri.Requset();
 	return uri.result;
 }
 string OKCoinApi::GetKline(string &symbol,string &type,string &size,string &since)			//Get /api/v1/kline		获取比特币或莱特币的K线数据
 {
 	Uri uri; urlprotocol.GetUrl(uri,HTTP_API_TYPE_KLINE);
-	uri.AddParam("symbol",type);
+	uri.AddParam("symbol", symbol);
+	uri.AddParam("type", type);
 	uri.AddParam("size",size);
 	uri.AddParam("since",since);
 	uri.Requset();
@@ -358,10 +355,11 @@ string OKCoinApiCom::DoFuture_Estimated_Price(string &symbol)	//GET /api/v1/futu
 	uri.Requset();
 	return uri.result;
 }
-string OKCoinApiCom::DoFuture_Kline(string &symbol,string &contract_type,string &size,string &since)	//GET /api/v1/future_kline				获取期货合约的K线数据
+string OKCoinApiCom::DoFuture_Kline(string &symbol,string &type,string &contract_type,string &size,string &since)	//GET /api/v1/future_kline				获取期货合约的K线数据
 {
 	Uri uri; urlprotocol.GetUrl(uri,HTTP_API_TYPE_FUTURE_KLINE);
 	uri.AddParam("symbol",symbol);
+	uri.AddParam("type", type);
 	uri.AddParam("contract_type",contract_type);
 	uri.AddParam("size",size);
 	uri.AddParam("since",since);
